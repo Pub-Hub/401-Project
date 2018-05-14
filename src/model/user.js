@@ -1,8 +1,5 @@
 'use strict';
 
-// TODO: create user Schema with username password hash, email, optional phone
-
-
 import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
@@ -19,6 +16,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  phoneNumber: {
+    type: String,
   },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
