@@ -1,5 +1,5 @@
 {
-  "name": "11-",
+  "name": "401-Project",
   "version": "1.0.0",
   "engines": {
     "node": "9.11"
@@ -22,7 +22,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
