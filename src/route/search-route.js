@@ -1,7 +1,7 @@
 'use strict';
 
 import { Router } from 'express';
-import HttpError from 'http-errors';
+// import HttpError from 'http-errors';
 import superagent from 'superagent';
 // import logger from '../lib/logger';
 import Stop from '../model/stop';
@@ -10,9 +10,6 @@ import Crawl from '../model/crawl';
 const searchRoute = new Router();
 
 searchRoute.get('/search/:latitude/:longitude/:price/:stops', (req, res, next) => {
-  if (!req.params.latitude || !req.params.longitude || !req.params.price || !req.params.stops) {
-    return next(new HttpError(400, 'SEARCH - Lat, long, price, and number of stops required'));
-  }
   let stops;
   let emptyCrawl;
   const stopInfo = [];

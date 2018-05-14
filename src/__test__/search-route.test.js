@@ -24,4 +24,11 @@ describe('testing search functionality', () => {
         logger.log(logger.INFO, `res.body ${JSON.stringify(res.body)}`);
       });
   });
+  test('should return 404 if necessary parameters are missing', () => {
+    return superagent.get(`${apiUrl}/search/6/7/1`)
+      .then(Promise.reject)
+      .catch((err) => {
+        expect(err.status).toEqual(404);
+      });
+  });
 });
