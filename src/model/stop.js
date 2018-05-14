@@ -1,7 +1,5 @@
 'use strict';
 
-// relationships many to many for CRAWLS and Users
-
 import mongoose from 'mongoose';
 import HttpError from 'http-errors';
 import Crawl from './crawl';
