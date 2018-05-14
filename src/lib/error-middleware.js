@@ -36,3 +36,5 @@ export default (error, request, response, next) => { // eslint-disable-line no-u
   logger.log(logger.ERROR, error);
   return response.sendStatus(500);
 };
+
+// fda

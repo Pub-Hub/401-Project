@@ -20,4 +20,4 @@ const profileSchema = mongoose.Schema({
   },
 });
 
-export default mongoose.model('profile', profileSchema);
+export default mongoose.model('crawl', profileSchema);
