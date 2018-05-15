@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import logger from './logger';
 // import crawlRoutes from '../route/crawl-route';
 // import stopRoutes from '../route/stop-route';
-// import userRoutes from '../route/user-route';
+import userRoutes from '../route/user-route';
 // import teamRoute from '../route/team';
 import searchRoute from '../route/search-route';
 import loggerMiddleware from './logger-middleware';
@@ -17,7 +17,8 @@ let server = null;
 app.use(loggerMiddleware);
 app.use(searchRoute);
 // app.use(stopRoutes);
-// app.use(userRoutes);
+
+app.use(userRoutes);
 // app.use(crawlRoutes);
 // app.use(teamRoute);
 app.all('*', (request, response) => {
