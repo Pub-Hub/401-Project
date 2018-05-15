@@ -27,7 +27,9 @@ GET /api/login
 PUT /api/
 DELETE /api/
 
+
 ### Schema Structure
+
 
 #### User Schema
 The user schema has a one to one relationship with the profile schema.  The user schema is linked
