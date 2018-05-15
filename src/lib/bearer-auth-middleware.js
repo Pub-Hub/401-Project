@@ -15,10 +15,8 @@ const promisify = callback => (...args) => {
 
 export default (req, res, next) => {
   if (!req.headers.authorization) return next(new HttpError(400, 'BEAR AUTH: Invalid Request'));
-
   const token = req.headers.authorization.split(' ')[1];
   if (!token) return next(new HttpError(400, 'BEAR AUTH: Invalid Request'));
-
   return promisify(jsonWebToken.verify)(token, process.env.SECRET)
     .then((decryptedData) => {
       return User.findOne({ tokenSeed: decryptedData.tokenSeed });

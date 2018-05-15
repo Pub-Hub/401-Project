@@ -4,7 +4,6 @@ import superagent from 'superagent';
 import { startServer, stopServer } from '../lib/server';
 import Crawl from '../model/crawl';
 import Stop from '../model/stop';
-import logger from '../lib/logger';
 
 const apiUrl = `http://localhost:${process.env.PORT}`;
 
@@ -21,7 +20,6 @@ describe('testing search functionality', () => {
       .then((res) => {
         expect(res.status).toEqual(200);
         expect(res.body).toHaveLength(5);
-        logger.log(logger.INFO, `res.body ${JSON.stringify(res.body)}`);
       });
   });
   test('should return 404 if necessary parameters are missing', () => {

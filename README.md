@@ -24,10 +24,10 @@ Node.js, npm, body-parser, dotenv, express, faker, mongoose, winston, babel, sup
 http-errors, jest, eslint, JavaScript.
     
 SERVER ENDPOINTS 
-POST /api/signup
-GET /api/login
-PUT /api/
-DELETE /api/
+- POST /api/signup
+- GET /api/login
+- PUT /api/
+- DELETE /api/
 
 
 ### Schema Structure
@@ -64,17 +64,12 @@ crawls schema. The stop schema holds the following information:
 * price is a required field. 
 
 ## Change Log
-05-14-2018  9:20am  repo created 
-
-05-14-2018  9:43am  first commit, scaffolding
-
-05-14-2018 11:00am  continued scaffolding project
-
-05-14-2018  2:00pm  schema and middleware added
-
-05-14-2018  3:30pm  updated readme and package.json
-
-05-14-2018  3:50pm  Google API intergration added and tested.
+- 05-14-2018  9:20am  repo created 
+- 05-14-2018  9:43am  first commit, scaffolding
+- 05-14-2018 11:00am  continued scaffolding project
+- 05-14-2018  2:00pm  schema and middleware added
+- 05-14-2018  3:30pm  updated readme and package.json
+- 05-14-2018  3:50pm  Google API intergration added and tested.
 
  
 

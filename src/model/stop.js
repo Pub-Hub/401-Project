@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 import HttpError from 'http-errors';
 import Crawl from './crawl';
+import logger from '../lib/logger';
 
 const stopSchema = mongoose.Schema({
   crawl: {
@@ -40,7 +41,7 @@ const stopSchema = mongoose.Schema({
   // },
 });
 
-function stopPreHook(done) {
+function savePreHook(done) {
   return Crawl.findById(this.crawl)
     .then((crawlFound) => {
       if (!crawlFound) throw new HttpError(404, 'Crawl not found');
@@ -51,20 +52,23 @@ function stopPreHook(done) {
     .catch(done);
 }
 
-const stopPostHook = (document, done) => {
-  return Crawl.findById(document.crawl)
+function removePostHook(document, next) {
+  logger.log(logger.INFO, 'HITTING HERE');
+  Crawl.findById(document.crawl)
     .then((crawlFound) => {
       if (!crawlFound) throw new HttpError(500, 'Crawl not found');
       crawlFound.stops = crawlFound.stops.filter((stop) => {
         return stop._id.toString() !== document._id.toString();
       });
+      logger.log(logger.INFO, `stops after filter: ${crawlFound}`);
+      crawlFound.save();
     })
-    .then(() => done())
-    .catch(done);
-};
+    .then(next)
+    .catch(next);
+}
 
 // event listeners
-stopSchema.pre('save', stopPreHook);
-stopSchema.post('remove', stopPostHook);
+stopSchema.pre('save', savePreHook);
+stopSchema.post('remove', removePostHook);
 
 export default mongoose.model('stop', stopSchema);

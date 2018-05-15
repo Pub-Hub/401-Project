@@ -11,6 +11,9 @@ const crawlSchema = mongoose.Schema({
       ref: 'stop',
     },
   ],
+  name: {
+    type: String,
+  },
   votes: {
     type: Number,
     default: 0,

@@ -4,9 +4,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import logger from './logger';
 // import crawlRoutes from '../route/crawl-route';
-// import stopRoutes from '../route/stop-route';
+import stopRoutes from '../route/stop-route';
 import userRoutes from '../route/user-route';
-// import teamRoute from '../route/team';
 import searchRoute from '../route/search-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
@@ -16,12 +15,11 @@ let server = null;
 
 app.use(loggerMiddleware);
 app.use(searchRoute);
-// app.use(stopRoutes);
+app.use(stopRoutes);
 
 app.use(userRoutes);
 // app.use(crawlRoutes);
-// app.use(teamRoute);
-app.get('/team', (req, res) => res.sendFile('/../data/team-info.html', { root: __dirname }));
+app.get('/team', (req, res) => res.sendFile('/src/data/team-info.html', { root: '.' }));
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning 404 from catch-all route');
   return response.sendStatus(404);
