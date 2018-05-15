@@ -1,24 +1,11 @@
 'use strict';
 
-// TODO: create the following routes
-
-/*
-/stops/:id - DELETE - deletes single stop on crawl
-/stops/:id - PUT - updates a stop on a crawl (adding votes)
-/stops/:id/votes - GET - retrieves total votes for a stop
-
-*/
-
 import { Router } from 'express';
-// import HttpError from 'http-errors';
-// import { json } from 'body-parser';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 import Stop from '../model/stop';
 
 const stopRouter = new Router();
-// const jsonParser = json();
 
-// PUT - adding votes
 stopRouter.put('/stops/votes/:id', bearerAuthMiddleware, (request, response, next) => {
   let voteTally;
   return Stop.findById(request.params.id)

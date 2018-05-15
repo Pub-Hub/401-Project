@@ -7,9 +7,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test2": "jest --coverage --forceExit",
-    "test": "eslint . && jest --coverage --forceExit",
-    "test1": "jest --coverage --forceExit --runInBand",
+    "test": "eslint . && jest --coverage --forceExit --runInBand",
+    "test-nolint": "jest --coverage --forceExit --runInBand",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db",
     "dboff": "killall mongod",
     "build": "babel src -d build",
