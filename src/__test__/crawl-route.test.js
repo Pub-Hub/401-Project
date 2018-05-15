@@ -48,7 +48,7 @@ describe('crawl-route.js tests', () => {
     });
   });
 
-  describe('GET - retriev a single crawl from a users profile', () => {
+  describe('GET - retrieve a single crawl from a users profile', () => {
     test('test should return status 200', () => {
       let savedCrawl;
       return createCrawlMockProm()
@@ -67,7 +67,7 @@ describe('crawl-route.js tests', () => {
     });
   });
 
-  describe('GET - retriev all crawls from a users profile', () => {
+  describe('GET - retrieve all crawls from a users profile', () => {
     test('test should return status 200', () => {
       return createCrawlMockProm()
         .then((mock) => {
