@@ -8,17 +8,9 @@ import User from '../model/user';
 import logger from '../lib/logger';
 import Profile from '../model/profile';
 
-// TODO: create the following routes
-
-/*
-/signup/profile/:id - PUT - update user profile
-*/
-
-// signup - POST - create user
 const userRouter = new Router();
 const jsonParser = json();
 
-// POST Route for signing up a new user to our DB
 userRouter.post('/signup', jsonParser, (request, response, next) => {
   return User.create(request.body.username, request.body.password, request.body.email)
     .then((user) => {
@@ -35,7 +27,6 @@ userRouter.post('/signup', jsonParser, (request, response, next) => {
     .catch(next);
 });
 
-// login - GET
 userRouter.get('/login', basicAuthMiddleware, (request, response, next) => {
   if (!request.user) {
     return next(new HttpError(404, 'ERROR user not found'));
