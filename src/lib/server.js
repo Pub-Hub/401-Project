@@ -20,6 +20,7 @@ app.use(searchRoute);
 // app.use(userRoutes);
 // app.use(crawlRoutes);
 // app.use(teamRoute);
+app.get('/team', (req, res) => res.sendFile('/../data/team-info.html', { root: __dirname }));
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning 404 from catch-all route');
   return response.sendStatus(404);
