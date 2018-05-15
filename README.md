@@ -63,10 +63,15 @@ crawls schema. The stop schema holds the following information:
 
 ## Change Log
 05-14-2018  9:20am  repo created 
+
 05-14-2018  9:43am  first commit, scaffolding
+
 05-14-2018 11:00am  continued scaffolding project
+
 05-14-2018  2:00pm  schema and middleware added
+
 05-14-2018  3:30pm  updated readme and package.json
+
 05-14-2018  3:50pm  Google API intergration added and tested.
 
  
