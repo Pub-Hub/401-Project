@@ -25,7 +25,7 @@ const createUserMockProm = () => {
       mock.user = user;
       return mock;
     });
-  };
+ };
 
 const removeUserMockProm = () => Promise.all([
   User.remove({}),
