@@ -17,6 +17,7 @@ let server = null;
 app.use(loggerMiddleware);
 app.use(searchRoute);
 // app.use(stopRoutes);
+
 app.use(userRoutes);
 // app.use(crawlRoutes);
 // app.use(teamRoute);
@@ -27,21 +28,21 @@ app.all('*', (request, response) => {
 app.use(errorMiddleware);
 
 const startServer = () => {
- return mongoose.connect(process.env.MONGODB_URI)
-   .then(() => {
-     server = app.listen(process.env.PORT, () => {
-       logger.log(logger.INFO, `Server is listening on port ${process.env.PORT}`);
-     });
-   });
+  return mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+      server = app.listen(process.env.PORT, () => {
+        logger.log(logger.INFO, `Server is listening on port ${process.env.PORT}`);
+      });
+    });
 };
 
 const stopServer = () => {
- return mongoose.disconnect()
-   .then(() => {
-     server.close(() => {
-       logger.log(logger.INFO, 'Server is off');
-     });
-   });
+  return mongoose.disconnect()
+    .then(() => {
+      server.close(() => {
+        logger.log(logger.INFO, 'Server is off');
+      });
+    });
 };
 
 export { startServer, stopServer };

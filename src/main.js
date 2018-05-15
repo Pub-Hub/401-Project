@@ -1,2 +1,5 @@
 'use strict';
-// main.js
+
+import { startServer } from './lib/server';
+
+startServer();
