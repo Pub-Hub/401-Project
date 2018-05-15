@@ -1,5 +1,7 @@
 # Pub Hub
 
+[![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
+
 **Author**: Dawn Aldrich, Josh Fredrickson, Ryan Groesch, Sarah Geyer
 
 **Version**: 1.0.0 
