@@ -2,7 +2,6 @@
 
 import express from 'express';
 import mongoose from 'mongoose';
-import fs from 'fs';
 import logger from './logger';
 // import crawlRoutes from '../route/crawl-route';
 import stopRoutes from '../route/stop-route';
@@ -17,12 +16,6 @@ let server = null;
 app.use(loggerMiddleware);
 app.use(searchRoute);
 app.use(stopRoutes);
-
-// app.get('/test', function(req, res, next) {
-//   var html = fs.readFileSync('./html/test.html', 'utf8')
-//   res.render('test', { html: html })
-//   // or res.send(html)
-// })
 
 app.use(userRoutes);
 // app.use(crawlRoutes);
