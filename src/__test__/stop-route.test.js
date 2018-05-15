@@ -1,8 +1,7 @@
 'use strict';
 
-// TODO: TDD FOR stop-route
 import superagent from 'superagent';
-import { createStopMockProm } from './lib/stop-mock';
+import { createStopMockProm, removeStopMockProm } from './lib/stop-mock';
 import { startServer, stopServer } from '../lib/server';
 import logger from '../lib/logger';
 import Crawl from '../model/crawl';
@@ -11,7 +10,7 @@ const apiUrl = `http://localhost:${process.env.PORT}`;
 
 beforeAll(startServer);
 afterAll(stopServer);
-// afterEach(removeStopMockProm);
+afterEach(removeStopMockProm);
 
 describe('stop-route.js', () => {
   describe('PUT', () => {
@@ -25,6 +24,24 @@ describe('stop-route.js', () => {
           expect(response.body.votes).toEqual(1);
           expect(response.status).toEqual(200);
         });
+    });
+    test('should return status 401 for bad token', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.put(`${apiUrl}/stops/votes/${mock.stop._id}`)
+            .set('Authorization', 'Bearer BADTOKEN');
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(401));
+    });
+    test('should return status 404 for bad id', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.put(`${apiUrl}/stops/votes/BADID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(404));
     });
   });
   describe('DELETE', () => {
@@ -45,6 +62,24 @@ describe('stop-route.js', () => {
           expect(crawl.stops).toHaveLength(0);
         });
     });
+    test('should return status 401 for bad token', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.del(`${apiUrl}/stops/${mock.stop._id}`)
+            .set('Authorization', 'Bearer BADTOKEN');
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(401));
+    });
+    test('should return status 404 for bad id', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.del(`${apiUrl}/stops/BADID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(404));
+    });
   });
 
   describe('GET VOTES', () => {
@@ -58,6 +93,24 @@ describe('stop-route.js', () => {
           expect(response.status).toBe(200);
           expect(response.body).toEqual('Total votes: 0');
         });
+    });
+    test('should return status 401 for bad token', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/stops/votes/${mock.stop._id}`)
+            .set('Authorization', 'Bearer BADTOKEN');
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(401));
+    });
+    test('should return status 404 for bad id', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/stops/votes/BADID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(404));
     });
   });
 });
