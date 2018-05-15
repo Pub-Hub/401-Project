@@ -22,8 +22,8 @@ app.use(userRoutes);
 // app.use(crawlRoutes);
 // app.use(teamRoute);
 app.all('*', (request, response) => {
- logger.log(logger.INFO, 'Returning 404 from catch-all route');
- return response.sendStatus(404);
+  logger.log(logger.INFO, 'Returning 404 from catch-all route');
+  return response.sendStatus(404);
 });
 app.use(errorMiddleware);
 
