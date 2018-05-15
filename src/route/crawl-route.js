@@ -93,6 +93,8 @@ crawlRouter.delete('/crawls/:id', (request, response, next) => {
     })
     .catch(next);
 });
+
+export default crawlRouter;
 /*
 
 
