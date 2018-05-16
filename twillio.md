@@ -42,3 +42,14 @@ Cloud communications platform for building SMS, Voice & Messaging applications o
 twilio.com
 Two-Factor Authentication with Authy, Node.js and Express
 Learn how to keep you user accounts secure by using two-factor authentication (2FA) in your application with Node.js, Express, and Authy from Twilio!
+
+_______________________________________________________________________________________
+Steps to success: install ngrok this is a middleware that allows us to port our localhost to the internet for testing purposes. 
+1. ensure that your instance of ngrok is running 
+2. run command <ngrok http 3000 (aka portthatyourarerunning)> 
+3. make sure that the link to the tunnel is saved in the phone number's sms settings on twilio. 
+4. open node index.js in a command line so the server is running.
+5. once both are running a helpful tool to see what traffic is going is access http://localhost:4040
+6. test by sending a message via the phone that is setup with it (currently it is dawn's number).
+
+Installing via mac: https://gist.github.com/wosephjeber/aa174fb851dfe87e644e 
