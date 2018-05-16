@@ -123,14 +123,6 @@ This will return an array of objects holding the names and addresses of the gene
          "__v": 0
      }
 
-## Change Log
-- 05-14-2018  9:20am  repo created 
-- 05-14-2018  9:43am  first commit, scaffolding
-- 05-14-2018 11:00am  continued scaffolding project
-- 05-14-2018  2:00pm  schema and middleware added
-- 05-14-2018  3:30pm  updated readme and package.json
-- 05-14-2018  3:50pm  Google API integration added and tested.
-
 ## Testing
 Testing is run through jest. To test, run
 
@@ -146,4 +138,3 @@ After testing, run:
 Collaborators: [Sarah Geyer](https://github.com/sjgeyer), [Ryan Groesch](https://github.com/ryan-g13), [Dawn Aldrich](https://github.com/dawnaldrich), [Josh Fredrickson](https://github.com/Joshua-Fredrickson)
 
 Special thanks to all of the Code Fellows staff.
-
