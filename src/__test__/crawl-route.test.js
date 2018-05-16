@@ -30,6 +30,28 @@ describe('crawl-route.js tests', () => {
           expect(profile.crawls).toHaveLength(1);
         });
     });
+    test('test should return status 401', () => {
+      return createCrawlMockNoProfileUpdateProm()
+        .then((mock) => {
+          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
+    test('test should return status 404', () => {
+      return createCrawlMockNoProfileUpdateProm()
+        .then((mock) => {
+          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(404);
+        });
+    });
   });
 
   describe('PUT - targets a particular crawl and add votes', () => {
