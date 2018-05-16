@@ -44,6 +44,28 @@ describe('crawl-route.js tests', () => {
           expect(response.status).toEqual(200);
         });
     });
+    test('test should return status 401', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.put(`${apiUrl}/crawls/votes/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
+    test('test should return status 404', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.put(`${apiUrl}/crawls/votes/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(404);
+        });
+    });
   });
 
   describe('GET - retrieve a single crawl from a users profile', () => {
@@ -60,6 +82,28 @@ describe('crawl-route.js tests', () => {
           expect(response.status).toEqual(200);
         });
     });
+    test('test should return status 401', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
+    test('test should return status 404', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/${mock.profile.username}/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(404);
+        });
+    });
   });
 
   describe('GET - retrieve all crawls from a users profile', () => {
@@ -72,6 +116,28 @@ describe('crawl-route.js tests', () => {
         .then((response) => {
           expect(response.body).toHaveLength(1);
           expect(response.status).toEqual(200);
+        });
+    });
+    test('GET all crawls test should return status 401', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/${mock.profile.username}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
+    test('GET all crawls test should return status 500', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(500);
         });
     });
   });
@@ -88,6 +154,28 @@ describe('crawl-route.js tests', () => {
           expect(response.status).toEqual(200);
         });
     });
+    test('Single crawl test should return status 404', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/${mock.profile.username}/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(404);
+        });
+    });
+    test('Single crawl test should return status 401', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
+        });
+    });
   });
 
   describe('DELETE - deletes a single crawl from a users profile', () => {
@@ -99,6 +187,28 @@ describe('crawl-route.js tests', () => {
         })
         .then((response) => {
           expect(response.status).toEqual(204);
+        });
+    });
+    test('DEL test should return 404', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.del(`${apiUrl}/crawls/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(404);
+        });
+    });
+    test('DEL should return status 401 ', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.del(`${apiUrl}/crawls/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
         });
     });
   });
@@ -113,6 +223,14 @@ describe('crawl-route.js tests', () => {
         .then((response) => {
           expect(response.status).toBe(200);
           expect(response.body).toHaveLength(1);
+        });
+    });
+    test('should return status 401 and array of all crawls in DB', () => {
+      return superagent.get(`${apiUrl}/crawls`)
+        .set('Authorization', 'Bearer BadID')
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toEqual(401);
         });
     });
   });
