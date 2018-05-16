@@ -2,6 +2,7 @@
 
 import superagent from 'superagent';
 import { createCrawlMockProm, removeCrawlMockProm, createCrawlMockNoProfileUpdateProm } from './lib/crawl-mock';
+// import { createUserMockProm, removeUserMockProm } from './lib/user-mock';
 import { startServer, stopServer } from '../lib/server';
 import Profile from '../model/profile';
 
@@ -9,6 +10,7 @@ const apiUrl = `http://localhost:${process.env.PORT}`;
 
 beforeAll(startServer);
 afterEach(removeCrawlMockProm);
+// afterEach(removeUserMockProm);
 afterAll(stopServer);
 
 describe('crawl-route.js tests', () => {
@@ -253,6 +255,42 @@ describe('crawl-route.js tests', () => {
         .then(Promise.reject)
         .catch((error) => {
           expect(error.status).toEqual(401);
+        });
+    });
+  });
+
+  describe('GET - a crawls total votes', () => {
+    test('should return status 200 with sucess', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/votes/${mock.crawl._id}`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then((response) => {
+          expect(response.body).toEqual('Total votes: 0');
+          expect(response.status).toBe(200);
+        });
+    });
+    test('should return status 404', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/votes/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toBe(404);
+        });
+    });
+    test('should return status 401', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/votes/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toBe(401);
         });
     });
   });
