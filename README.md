@@ -3,7 +3,7 @@
 ![pubhub image](src/data/pubhub-small.png) 
 
 [![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
-![Coverage](https://img.shields.io/badge/coverage-92.67%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-93.17%25-brightgreen.svg)
 ![Node](https://img.shields.io/badge/node-v9.11.1-blue.svg)
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
