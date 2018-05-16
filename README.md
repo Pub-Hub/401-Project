@@ -17,11 +17,25 @@ The PubHub API is available at `https://pub-hub.herokuapp.com`.
 - [Using PubHub](#using-pubhub)
 - [Schemas](#schema-structure)
     - [User Schema](#user-schema)
+        - [Sign up](#post-/signup)
+        - [Log in](#get-/login)
     - [Profile Schema](#profile-schema)
+        - [See all user profiles](#get-/profiles)
     - [Crawls Schema](#crawls-schema)
+        - [Get all crawls in database](#get-/crawls)
+        - [Get all crawls by username](#get-/crawls/\<username>)
+        - [Get one crawl by username](#get-/crawls/\<username>/<crawl-id>)
+        - [Get total votes by crawl](#get-/crawls/votes/<crawl-id>)
+        - [Add a vote to a crawl](#put-/crawls/votes/<crawl-id>)
+        - [Add a crawl to a user's profile](#put-/crawls/\<username>/<crawl-id>)
+        - [Delete a crawl](#delete-/crawls/<crawl-id>)
     - [Stops Schema](#stops-schema)
+        - [Add a vote to a stop](#put-/stops/votes/<stop-id>)
+        - [Get total votes by stop](#get-/stops/votes/<stop-id>)
+        - [Delete a stop from a route](#delete-/stops/<stop-id>)
 - [Architecture](#architecture)
 - [Testing](#testing)
+- [Meet the Team](#meet-the-team)
 - [Credits and Collaborations](#credits-and-collaborations)
 
 
@@ -88,9 +102,11 @@ The user schema has a one to one relationship with the profile schema.  The user
 - A required and unique `email` string.
 - A optional `phone` number string
 
-**Server Endpoints for User Schema**:
-- POST `/signup` - allows new users to sign up
-- GET `/login` - allows existing users to log in
+#### POST /signup
+Creates a new user profile and returns a unique token that the user must then pass to reach the other endpoints.
+
+#### GET /login
+Allows existing users to log in and returns a unique token that the user must then pass to reach the other endpoints.
 
 ### Profile Schema
 The profile schema has a one to one relationship with the user, and a one to many relationship with the Crawls schema. The profile schema holds the following information: 
@@ -98,9 +114,10 @@ The profile schema has a one to one relationship with the user, and a one to man
 - Array of `crawls` that contains the ids of the crawls saved to the user profile.
 - Link to `User`.
 
-**Server Endpoints for Profile Schema**:
-- GET `/profiles` - returns a list of all user profiles in the database
+#### GET /profiles
+Returns a list of all user profiles in the database
 
+Example return:
 
      [ 
        "user34932",
@@ -114,8 +131,8 @@ The crawls schema has a one to many relationship with a user's profile (many cra
 - Array of `stops` that contains the ids of the stops that make up the crawl.
 - A `votes` field that holds a number denoting the amount of times the crawl has been "liked"/"favorited". 
 
-**Server Endpoints for Crawls Schema**:
-- GET `/crawls` - returns all the saved crawls in the database
+#### GET /crawls
+Returns all the saved crawls in the database
 
 
         [ 
@@ -124,7 +141,10 @@ The crawls schema has a one to many relationship with a user's profile (many cra
         ]
 
 
-- GET `/crawls/<username>` - returns all saved crawls on a user's profile as an array of objects
+#### GET /crawls/\<username>
+Returns all saved crawls on a user's profile as an array of objects.
+
+Example return:
 
 
         [
@@ -138,7 +158,11 @@ The crawls schema has a one to many relationship with a user's profile (many cra
             }            
         ]
 
-- GET `/crawls/<username>/<crawl-id>` - returns a single crawl from the user's profile
+#### GET /crawls/\<username>/<crawl-id>
+
+Returns a single crawl from the user's profile.
+
+Example return:
 
 
             {
@@ -156,11 +180,39 @@ The crawls schema has a one to many relationship with a user's profile (many cra
                 "profile": "5afc6fbbca7fb6001a5ed724"
             }
 
-- GET `/crawls/votes/<crawl-id>` - returns the total number of votes on a crawl as a string
+#### GET /crawls/votes/<crawl-id>
+Returns the total number of votes on a crawl as a string.
+
+Example return:
 
 
         "Total votes: 5"
-- PUT `/crawls/<username>/<crawl-id>` - saves a crawl to the user's profile and returns the saved crawl
+
+#### PUT /crawls/votes/<crawl-id>
+Adds a vote to a crawl and returns the updated crawl.
+
+Example return:
+
+
+        {
+            "stops": [
+                "5afc7072ca7fb6001a5ed727",
+                "5afc7072ca7fb6001a5ed726",
+                "5afc7072ca7fb6001a5ed728",
+                "5afc7072ca7fb6001a5ed729",
+                "5afc7072ca7fb6001a5ed72a",
+                "5afc7072ca7fb6001a5ed72b"
+            ],
+            "votes": 10,
+            "_id": "5afc7072ca7fb6001a5ed725",
+            "__v": 6,
+            "profile": "5afc6fbbca7fb6001a5ed724"
+        }
+        
+#### PUT /crawls/\<username>/<crawl-id>
+Saves a crawl to the user's profile and returns the saved crawl.
+
+Example return:
         
         
         {
@@ -178,24 +230,10 @@ The crawls schema has a one to many relationship with a user's profile (many cra
             "profile": "5afc6fbbca7fb6001a5ed724"
         }
 
-- PUT `/crawls/votes/<crawl-id>` - adds a vote to a crawl and returns the updated crawl
+#### DELETE /crawls/<crawl-id>
+Deletes a single crawl from the database and removes crawl id from the user's profile.
 
-
-        {
-            "stops": [
-                "5afc7072ca7fb6001a5ed727",
-                "5afc7072ca7fb6001a5ed726",
-                "5afc7072ca7fb6001a5ed728",
-                "5afc7072ca7fb6001a5ed729",
-                "5afc7072ca7fb6001a5ed72a",
-                "5afc7072ca7fb6001a5ed72b"
-            ],
-            "votes": 10,
-            "_id": "5afc7072ca7fb6001a5ed725",
-            "__v": 6,
-            "profile": "5afc6fbbca7fb6001a5ed724"
-        }
-- DELETE `/crawls/<crawl-id>` - deletes a single crawl from the database (and removes linked crawl on the user's profile). (No return value).
+No return value.
 
 #### Stops Schema
 The stops schema has a many to many relationship with the Crawls schema. The stop schema holds the following information: 
@@ -203,8 +241,10 @@ The stops schema has a many to many relationship with the Crawls schema. The sto
 - A `votes` field that holds a number denoting the amount of times the stop has been "liked"/"favorited". 
 - The following fields are required and take in a 'String' type: `locationName`, `address`, `latitude`, and `longitude`.
 
-**Server Endpoints for Crawls Schema**:
-- PUT `/stops/votes/<stop-id>` - adds a vote to a stop and returns the stop information
+#### PUT /stops/votes/<stop-id>
+Adds a vote to a stop and returns the stop information.
+
+Example return:
 
 
         {
@@ -217,11 +257,17 @@ The stops schema has a many to many relationship with the Crawls schema. The sto
             "address": "140 4th Avenue North #130, Seattle",
             "__v": 0
         }
-- GET `/stops/votes/<stop-id>` - returns the total number of votes for a single stop as a string
+#### GET /stops/votes/<stop-id>
+Returns the total number of votes for a single stop as a string.
+
+Example return:
 
 
         "Total votes: 5"
-- DELETE `/stops/<stop-id>` - deletes a single stop from the database (and removes stop from the parent crawl). No return value.
+#### DELETE /stops/<stop-id>
+Deletes a single stop from the database and removes the stop from the parent crawl. 
+
+No return value.
 
 ## Architecture
 This application was deployed with the following technologies.
@@ -236,6 +282,11 @@ Testing is run through jest. To test, run
 After testing, run:
 
     npm run dboff
+
+## Meet the Team
+
+GET `https://pub-hub.herokuapp.com/team` to learn a little bit more about the team that created this project.
+
 
 ## Credits and Collaborations
 
