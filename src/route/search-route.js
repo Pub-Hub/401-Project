@@ -35,7 +35,7 @@ searchRoute.get('/search/:latitude/:longitude/:price/:stops', (req, res, next) =
     .then(() => {
       return Crawl.findById(emptyCrawl._id)
         .then((foundCrawl) => {
-          stopInfo.push({ routeId: foundCrawl._id });
+          stopInfo.push({ crawlId: foundCrawl._id });
           return res.json(stopInfo);
         });
     })

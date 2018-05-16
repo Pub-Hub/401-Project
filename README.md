@@ -3,12 +3,12 @@
 ![pubhub image](src/data/pubhub-small.png) 
 
 [![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
-![Coverage](https://img.shields.io/badge/coverage-96.15%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-97.32%25-brightgreen.svg)
 ![Node](https://img.shields.io/badge/node-v9.11.1-blue.svg)
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
 
-## Overview
+# Overview
 
 ## Getting Started
 
@@ -48,10 +48,10 @@ This will return an array of objects holding the names and addresses of the gene
         { "name": "Uptown China Restaurant",
           "address": "200, 4805, Queen Anne Avenue North, Seattle" },
           
-        { "routeId": "5afa370d1116fdb6bc886cfb" }
+        { "crawlId": "5afa370d1116fdb6bc886cfb" }
      ]
  
- The last item in the array is the id of the generated crawl, that the user can then choose to save to their profile by hitting the route `https://pub-hub.herokuapp.com/crawls/<username>/<routeId>`
+ The last item in the array is the id of the generated crawl, that the user can then choose to save to their profile by hitting the route `https://pub-hub.herokuapp.com/crawls/<username>/<crawlId>`
  
         https://pub-hub.herokuapp.com/crawls/pubhubUser38492/5afa370d1116fdb6bc886cfb
  
