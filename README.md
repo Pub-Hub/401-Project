@@ -46,6 +46,7 @@ To generate a Pub crawl, make a GET request to the following link (with paramete
         https://pub-hub.herokuapp.com/search/<latitude>/<longitude>/<price-range>/<max-stops>
 
 - *The price range must be a number between 0-4*
+- *PubHub supports between 3-6 stops*
 
 This will return an array of objects holding the names and addresses of the generated pub crawl:
  
