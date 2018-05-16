@@ -2,6 +2,7 @@
 
 import superagent from 'superagent';
 import { createCrawlMockProm, removeCrawlMockProm, createCrawlMockNoProfileUpdateProm } from './lib/crawl-mock';
+// import { createUserMockProm, removeUserMockProm } from './lib/user-mock';
 import { startServer, stopServer } from '../lib/server';
 import Profile from '../model/profile';
 
@@ -9,6 +10,7 @@ const apiUrl = `http://localhost:${process.env.PORT}`;
 
 beforeAll(startServer);
 afterEach(removeCrawlMockProm);
+// afterEach(removeUserMockProm);
 afterAll(stopServer);
 
 describe('crawl-route.js tests', () => {
@@ -269,7 +271,7 @@ describe('crawl-route.js tests', () => {
           expect(response.status).toBe(200);
         });
     });
-    test('should return status 404 with sucess', () => {
+    test('should return status 404', () => {
       return createCrawlMockProm()
         .then((mock) => {
           return superagent.get(`${apiUrl}/crawls/votes/badID`)
@@ -280,7 +282,7 @@ describe('crawl-route.js tests', () => {
           expect(error.status).toBe(404);
         });
     });
-    test('should return status 401 with sucess', () => {
+    test('should return status 401', () => {
       return createCrawlMockProm()
         .then((mock) => {
           return superagent.get(`${apiUrl}/crawls/votes/${mock.crawl._id}`)
