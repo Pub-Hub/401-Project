@@ -3,7 +3,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import logger from './logger';
-// import crawlRoutes from '../route/crawl-route';
+import crawlRoutes from '../route/crawl-route';
 import stopRoutes from '../route/stop-route';
 import userRoutes from '../route/user-route';
 import searchRoute from '../route/search-route';
@@ -18,7 +18,7 @@ app.use(searchRoute);
 app.use(stopRoutes);
 
 app.use(userRoutes);
-// app.use(crawlRoutes);
+app.use(crawlRoutes);
 app.get('/team', (req, res) => res.sendFile('/src/data/team-info.html', { root: '.' }));
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning 404 from catch-all route');
