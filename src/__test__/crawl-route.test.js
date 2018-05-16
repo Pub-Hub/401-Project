@@ -2,7 +2,6 @@
 
 import superagent from 'superagent';
 import { createCrawlMockProm, removeCrawlMockProm, createCrawlMockNoProfileUpdateProm } from './lib/crawl-mock';
-// import { createUserMockProm, removeUserMockProm } from './lib/user-mock';
 import { startServer, stopServer } from '../lib/server';
 import Profile from '../model/profile';
 
@@ -10,7 +9,6 @@ const apiUrl = `http://localhost:${process.env.PORT}`;
 
 beforeAll(startServer);
 afterEach(removeCrawlMockProm);
-// afterEach(removeUserMockProm);
 afterAll(stopServer);
 
 describe('crawl-route.js tests', () => {
@@ -105,6 +103,22 @@ describe('crawl-route.js tests', () => {
         .then((response) => {
           expect(response.body._id).toEqual(savedCrawl._id.toString());
           expect(response.status).toEqual(200);
+        });
+    });
+    test('should return status 400 if route is not on user\'s profile', () => {
+      let wrongProfile;
+      return createCrawlMockProm()
+        .then((firstMock) => {
+          wrongProfile = firstMock.profile;
+          return createCrawlMockProm();
+        })
+        .then((secondMock) => {
+          return superagent.get(`${apiUrl}/crawls/${wrongProfile.username}/${secondMock.crawl._id}`)
+            .set('Authorization', `Bearer ${secondMock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((err) => {
+          expect(err.status).toBe(400);
         });
     });
     test('test should return status 401', () => {
