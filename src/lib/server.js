@@ -7,6 +7,7 @@ import logger from './logger';
 import stopRoutes from '../route/stop-route';
 import userRoutes from '../route/user-route';
 import searchRoute from '../route/search-route';
+import profileRoute from '../route/profile-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
 
@@ -16,7 +17,7 @@ let server = null;
 app.use(loggerMiddleware);
 app.use(searchRoute);
 app.use(stopRoutes);
-
+app.use(profileRoute);
 app.use(userRoutes);
 // app.use(crawlRoutes);
 app.get('/team', (req, res) => res.sendFile('/src/data/team-info.html', { root: '.' }));
