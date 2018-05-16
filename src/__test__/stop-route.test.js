@@ -80,6 +80,15 @@ describe('stop-route.js', () => {
         .then(Promise.reject)
         .catch(err => expect(err.status).toBe(404));
     });
+    test('should return status 400 if no token sent', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/stops/votes/${mock.stop._id}`)
+            .set('Authorization', 'Bearer');
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(400));
+    });
   });
 
   describe('GET VOTES', () => {
@@ -111,6 +120,14 @@ describe('stop-route.js', () => {
         })
         .then(Promise.reject)
         .catch(err => expect(err.status).toBe(404));
+    });
+    test('should return status 400 if no authorization sent', () => {
+      return createStopMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/stops/votes/${mock.stop._id}`);
+        })
+        .then(Promise.reject)
+        .catch(err => expect(err.status).toBe(400));
     });
   });
 });
