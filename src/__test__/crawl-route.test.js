@@ -20,11 +20,12 @@ describe('crawl-route.js tests', () => {
       return createCrawlMockNoProfileUpdateProm()
         .then((mock) => {
           savedProfile = mock.profile._id;
-          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}`)
+          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}/test`)
             .set('Authorization', `Bearer ${mock.user.token}`);
         })
         .then((response) => {
           expect(response.body.profile).toEqual(savedProfile.toString());
+          expect(response.body.name).toEqual('test');
           expect(response.status).toEqual(200);
           return Profile.findById(savedProfile.toString());
         })
@@ -35,7 +36,7 @@ describe('crawl-route.js tests', () => {
     test('test should return status 401', () => {
       return createCrawlMockNoProfileUpdateProm()
         .then((mock) => {
-          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}`)
+          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/${mock.crawl._id}/test`)
             .set('Authorization', 'Bearer badID');
         })
         .then(Promise.reject)
@@ -46,7 +47,7 @@ describe('crawl-route.js tests', () => {
     test('test should return status 404', () => {
       return createCrawlMockNoProfileUpdateProm()
         .then((mock) => {
-          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/badID`)
+          return superagent.put(`${apiUrl}/crawls/${mock.profile.username}/badID/test`)
             .set('Authorization', `Bearer ${mock.user.token}`);
         })
         .then(Promise.reject)

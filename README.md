@@ -3,7 +3,7 @@
 ![pubhub image](src/data/pubhub-small.png) 
 
 [![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
-![Coverage](https://img.shields.io/badge/coverage-97.32%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-98.08%25-brightgreen.svg)
 ![Node](https://img.shields.io/badge/node-v9.11.1-blue.svg)
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
@@ -27,7 +27,7 @@ The PubHub API is available at `https://pub-hub.herokuapp.com`.
         - [Get one crawl by username](#get-/crawls/\<username>/<crawl-id>)
         - [Get total votes by crawl](#get-/crawls/votes/<crawl-id>)
         - [Add a vote to a crawl](#put-/crawls/votes/<crawl-id>)
-        - [Add a crawl to a user's profile](#put-/crawls/\<username>/<crawl-id>)
+        - [Add a crawl to a user's profile](#put-/crawls/\<username>/<crawl-id>/<route-name>)
         - [Delete a crawl](#delete-/crawls/<crawl-id>)
     - [Stops Schema](#stops-schema)
         - [Add a vote to a stop](#put-/stops/votes/<stop-id>)
@@ -65,9 +65,9 @@ This will return an array of objects holding the names and addresses of the gene
         { "crawlId": "5afa370d1116fdb6bc886cfb" }
      ]
  
- The last item in the array is the id of the generated crawl, that the user can then choose to save to their profile by hitting the route `https://pub-hub.herokuapp.com/crawls/<username>/<crawlId>`
+ The last item in the array is the id of the generated crawl, that the user can then choose to save to their profile by hitting the route `https://pub-hub.herokuapp.com/crawls/<username>/<crawlId>/<routeName>`
  
-        https://pub-hub.herokuapp.com/crawls/pubhubUser38492/5afa370d1116fdb6bc886cfb
+        https://pub-hub.herokuapp.com/crawls/pubhubUser38492/5afa370d1116fdb6bc886cfb/Seattle
  
  This will save the crawl to the user's profile and return the updated crawl with the updated profile id.
  
@@ -79,6 +79,7 @@ This will return an array of objects holding the names and addresses of the gene
                 "5afc7072ca7fb6001a5ed729",
             ],
             "votes": 0,
+            "name": "Seattle",
             "_id": "5afa370d1116fdb6bc886cfb",
             "__v": 6,
             "profile": "5afc6fbbca7fb6001a5ed724"
@@ -209,7 +210,7 @@ Example return:
             "profile": "5afc6fbbca7fb6001a5ed724"
         }
         
-#### PUT /crawls/\<username>/<crawl-id>
+#### PUT /crawls/\<username>/<crawl-id>/<route-name>
 Saves a crawl to the user's profile and returns the saved crawl.
 
 Example return:
