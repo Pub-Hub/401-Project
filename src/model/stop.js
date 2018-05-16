@@ -3,7 +3,6 @@
 import mongoose from 'mongoose';
 import HttpError from 'http-errors';
 import Crawl from './crawl';
-import logger from '../lib/logger';
 
 const stopSchema = mongoose.Schema({
   crawl: {
@@ -53,14 +52,12 @@ function savePreHook(done) {
 }
 
 function removePostHook(document, next) {
-  logger.log(logger.INFO, 'HITTING HERE');
   Crawl.findById(document.crawl)
     .then((crawlFound) => {
       if (!crawlFound) throw new HttpError(500, 'Crawl not found');
       crawlFound.stops = crawlFound.stops.filter((stop) => {
         return stop._id.toString() !== document._id.toString();
       });
-      logger.log(logger.INFO, `stops after filter: ${crawlFound}`);
       crawlFound.save();
     })
     .then(next)

@@ -1,6 +1,5 @@
 'use strict';
 
-// relationship: many to many for USERS and STOPS
 import HttpError from 'http-errors';
 import mongoose from 'mongoose';
 import Profile from './profile';
@@ -15,6 +14,9 @@ const crawlSchema = mongoose.Schema({
   votes: {
     type: Number,
     default: 0,
+  },
+  name: {
+    type: String,
   },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
