@@ -102,4 +102,18 @@ describe('crawl-route.js tests', () => {
         });
     });
   });
+
+  describe('GET - /crawls', () => {
+    test('should return status 200 and array of all crawls in DB', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then((response) => {
+          expect(response.status).toBe(200);
+          expect(response.body).toHaveLength(1);
+        });
+    });
+  });
 });

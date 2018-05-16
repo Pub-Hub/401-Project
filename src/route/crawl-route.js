@@ -9,6 +9,16 @@ import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
 const crawlRouter = new Router();
 
+crawlRouter.get('/crawls', bearerAuthMiddleware, (request, response, next) => {
+  return Crawl.find()
+    .then((crawls) => {
+      const crawlInfo = [];
+      crawls.forEach(crawl => crawlInfo.push({ name: crawl.name, id: crawl._id }));
+      return response.json(crawlInfo);
+    })
+    .catch(next);
+});
+
 crawlRouter.put('/crawls/votes/:id', bearerAuthMiddleware, (request, response, next) => {
   let votesCounter;
   return Crawl.findById(request.params.id)

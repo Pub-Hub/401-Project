@@ -3,7 +3,7 @@
 ![pubhub image](src/data/pubhub-small.png) 
 
 [![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
-![Coverage](https://img.shields.io/badge/coverage-93.17%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-96.15%25-brightgreen.svg)
 ![Node](https://img.shields.io/badge/node-v9.11.1-blue.svg)
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
@@ -54,6 +54,14 @@ The crawls schema has a one to many relationship with a user's profile (many cra
 
 **Server Endpoints for Crawls Schema**:
 - GET `/crawls` - returns all the saved crawls in the database
+
+
+        [ 
+            { name: 'Belltown', id: '5afc6498d8e311355ae34185' },
+            { name: 'Capitol Hill', id: '5afc6498g111355ae34185' },
+        ]
+
+
 - GET `/crawls/<username>` - returns all saved crawls on a user's profile
 - GET `/crawls/<username>/<crawl-id>` - returns a single crawl from the user's profile
 - GET `/crawls/votes/<crawl-id>` - returns the total number of votes on a crawl
@@ -77,7 +85,9 @@ The stops schema has a many to many relationship with the Crawls schema. The sto
 TODO: ((need example code blocks!!!))
 
 ## Using PubHub
-`app.get('<url>/search/<latitude>/<longitude>/<price-range>/<max-stops>')`
+
+`app.get('https://pub-hub.herokuapp.com/search/<latitude>/<longitude>/<price-range>/<max-stops>')`
+*The price range must be a number between 0-4*
 
 This will return an array of objects holding the names and addresses of the generated pub crawl:
  
@@ -99,7 +109,7 @@ This will return an array of objects holding the names and addresses of the gene
  
  The last item in the array is the id of the generated crawl, that the user can then choose to save to their profile.
  
-    app.put('<url>/crawls/pubhubUser38492/5afa370d1116fdb6bc886cfb')
+        app.put('https://pub-hub.herokuapp.com/crawls/pubhubUser38492/5afa370d1116fdb6bc886cfb')
  
  This will save the crawl to the user's profile and return the updated crawl with the updated profile id.
  
