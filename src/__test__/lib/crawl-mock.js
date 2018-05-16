@@ -18,6 +18,14 @@ const createCrawlMockProm = () => {
     })
     .then((crawl) => {
       mock.crawl = crawl;
+      return Profile.findById(mock.profile._id);
+    })
+    .then((profileToUpdate) => {
+      profileToUpdate.crawls.push(mock.crawl._id);
+      return profileToUpdate.save();
+    })
+    .then((updatedProfile) => {
+      mock.profile = updatedProfile;
       return mock;
     });
 };

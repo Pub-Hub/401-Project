@@ -1,8 +1,6 @@
 'use strict';
 
 import { Router } from 'express';
-// import HttpError from 'http-errors';
-// import logger from '../l/**/ib/logger';
 import Profile from '../model/profile';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
