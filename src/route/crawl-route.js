@@ -1,7 +1,7 @@
 'use strict';
 
 import { Router } from 'express';
-// import HttpError from 'http-errors';
+import HttpError from 'http-errors';
 import Crawl from '../model/crawl';
 import logger from '../lib/logger';
 import Profile from '../model/profile';
@@ -9,19 +9,25 @@ import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
 const crawlRouter = new Router();
 
+crawlRouter.get('/crawls', bearerAuthMiddleware, (request, response, next) => {
+  return Crawl.find()
+    .then((crawls) => {
+      const crawlInfo = [];
+      crawls.forEach(crawl => crawlInfo.push({ name: crawl.name, id: crawl._id }));
+      return response.json(crawlInfo);
+    })
+    .catch(next);
+});
+
 crawlRouter.put('/crawls/votes/:id', bearerAuthMiddleware, (request, response, next) => {
   let votesCounter;
-  logger.log(logger.INFO, 'HITTING HERE 1');
   return Crawl.findById(request.params.id)
     .then((crawl) => {
-      logger.log(logger.INFO, 'HITTING HERE 3');
-
       votesCounter = crawl.votes += 1;
       const options = { runValidators: true, new: true };
       return Crawl.findByIdAndUpdate(request.params.id, { votes: votesCounter }, options);
     })
     .then((updatedCrawl) => {
-      logger.log(logger.INFO, 'HITTING HERE 2');
       logger.log(logger.INFO, `updated Crawl ${updatedCrawl}`);
       return response.json(updatedCrawl);
     })
@@ -44,8 +50,6 @@ crawlRouter.get('/crawls/:username', bearerAuthMiddleware, (request, response, n
     .then((foundCrawls) => {
       const crawls = [];
       logger.log(logger.INFO, `Found crawl: ${foundCrawls}`);
-      // TODO: add crawl to user profile
-      // pushing crawl name and id into array, return array to user.
       foundCrawls.forEach(crawl => crawls.push({ name: crawl.name, id: crawl._id }));
       return response.json(crawls);
     })
@@ -65,10 +69,14 @@ crawlRouter.delete('/crawls/:id', bearerAuthMiddleware, (request, response, next
 });
 
 crawlRouter.put('/crawls/:username/:id', bearerAuthMiddleware, (request, response, next) => {
-  const options = { runValidators: true, new: true };
   return Profile.findOne({ username: request.params.username })
     .then((profile) => {
-      return Crawl.findByIdAndUpdate(request.params.id, { profile: profile._id }, options);
+      profile.crawls.push(request.params.id);
+      return profile.save();
+    })
+    .then((updatedProfile) => {
+      const options = { runValidators: true, new: true };
+      return Crawl.findByIdAndUpdate(request.params.id, { profile: updatedProfile._id }, options);
     })
     .then((updatedCrawl) => {
       logger.log(logger.INFO, `Updated crawl: ${updatedCrawl}`);
@@ -85,11 +93,9 @@ crawlRouter.get('/crawls/:username/:id', bearerAuthMiddleware, (request, respons
       return Crawl.findById(request.params.id);
     })
     .then((foundCrawl) => {
-      // TODO: add crawl to profile when saving crawl
-      // if (!profile.crawls.includes(foundCrawl._id.toString())) {
-      //   return next(new HttpError(400, 'ERROR no crawl associated with user'));
-      // }
-      console.log(profile);
+      if (profile.crawls.indexOf(foundCrawl._id) < 0) {
+        return next(new HttpError(400, 'ERROR no crawl associated with user'));
+      }
       logger.log(logger.INFO, `Found crawl: ${foundCrawl}`);
       return response.json(foundCrawl);
     })

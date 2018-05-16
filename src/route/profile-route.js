@@ -1,8 +1,6 @@
 'use strict';
 
 import { Router } from 'express';
-// import HttpError from 'http-errors';
-// import logger from '../l/**/ib/logger';
 import Profile from '../model/profile';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
@@ -13,7 +11,7 @@ profileRouter.get('/profiles', bearerAuthMiddleware, (request, response, next) =
     .then((profiles) => {
       const allUsers = [];
       profiles.forEach(profile => allUsers.push(profile.username));
-      return response.json(profiles);
+      return response.json(allUsers);
     })
     .catch(next);
 });

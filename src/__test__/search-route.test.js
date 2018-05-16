@@ -29,4 +29,11 @@ describe('testing search functionality', () => {
         expect(err.status).toEqual(404);
       });
   });
+  test('should return 400 if max price is greater than 4', () => {
+    return superagent.get(`${apiUrl}/search/47.6182477/-122.35406/8/4`)
+      .then(Promise.reject)
+      .catch((err) => {
+        expect(err.status).toEqual(400);
+      });
+  });
 });

@@ -1,7 +1,7 @@
 'use strict';
 
 import { Router } from 'express';
-// import HttpError from 'http-errors';
+import HttpError from 'http-errors';
 import superagent from 'superagent';
 // import logger from '../lib/logger';
 import Stop from '../model/stop';
@@ -10,6 +10,7 @@ import Crawl from '../model/crawl';
 const searchRoute = new Router();
 
 searchRoute.get('/search/:latitude/:longitude/:price/:stops', (req, res, next) => {
+  if (req.params.price > 4) return next(new HttpError(400, 'Max stops must be between 0-4'));
   let stops;
   let emptyCrawl;
   const stopInfo = [];
