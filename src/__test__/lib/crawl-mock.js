@@ -30,9 +30,26 @@ const createCrawlMockProm = () => {
     });
 };
 
+const createCrawlMockNoProfileUpdateProm = () => {
+  const mock = {};
+  return createUserMockProm()
+    .then((userMock) => {
+      mock.user = userMock;
+      return new Profile({ username: userMock.user.username, user: userMock.user._id }).save();
+    })
+    .then((profile) => {
+      mock.profile = profile;
+      return new Crawl({ name: faker.lorem.words(2), profile: profile._id }).save();
+    })
+    .then((crawl) => {
+      mock.crawl = crawl;
+      return mock;
+    });
+};
+
 const removeCrawlMockProm = () => Promise.all([
   Crawl.remove({}),
   removeUserMockProm(),
 ]);
 
-export { createCrawlMockProm, removeCrawlMockProm };
+export { createCrawlMockProm, removeCrawlMockProm, createCrawlMockNoProfileUpdateProm };
