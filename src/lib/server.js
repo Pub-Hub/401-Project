@@ -20,7 +20,7 @@ app.use(stopRoutes);
 app.use(profileRoute);
 app.use(userRoutes);
 app.use(crawlRoutes);
-app.get('/team', (req, res) => res.sendFile('/src/data/team-info.html', { root: '.' }));
+app.get('/team', (req, res) => res.sendFile('/src/data/team.txt', { root: '.' }));
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning 404 from catch-all route');
   return response.sendStatus(404);

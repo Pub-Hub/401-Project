@@ -68,7 +68,7 @@ crawlRouter.delete('/crawls/:id', bearerAuthMiddleware, (request, response, next
     .catch(next);
 });
 
-crawlRouter.put('/crawls/:username/:id', bearerAuthMiddleware, (request, response, next) => {
+crawlRouter.put('/crawls/:username/:id/:name', bearerAuthMiddleware, (request, response, next) => {
   return Profile.findOne({ username: request.params.username })
     .then((profile) => {
       profile.crawls.push(request.params.id);
@@ -76,7 +76,11 @@ crawlRouter.put('/crawls/:username/:id', bearerAuthMiddleware, (request, respons
     })
     .then((updatedProfile) => {
       const options = { runValidators: true, new: true };
-      return Crawl.findByIdAndUpdate(request.params.id, { profile: updatedProfile._id }, options);
+      return Crawl.findByIdAndUpdate(
+        request.params.id,
+        { profile: updatedProfile._id, name: request.params.name },
+        options,
+      );
     })
     .then((updatedCrawl) => {
       logger.log(logger.INFO, `Updated crawl: ${updatedCrawl}`);

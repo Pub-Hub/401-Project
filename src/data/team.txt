@@ -1,0 +1,17 @@
+Meet the Team!
+
+Dawn
+Dawn is a Full-Stack JavaScript Developer in Seattle. She has worked as a vendor for Microsoft building SharePoint sites and web pages. Dawn is very happy when she is doing something outdoors whether it's hiking, jogging or camping. Having grown up in Port Townsend she loves being surrounded by water and nutty people. She loves a good puzzle and one of her favorite hobbies is Code Wars.
+LinkedIn: https://www.linkedin.com/in/dawn-aldrich-3b62314/
+
+Joshua
+Joshua is a web developer who is passionate about innovating process to improve overall productivity. He has 20+ years luxury automotive experience with the Jaguar, Land Rover, Bentley, Rolls Royce, Lamborghini and Tesla Brands. He is leveraging those experiences into web application design.
+LinkedIn: https://www.linkedin.com/in/joshua-fredrickson-26567439/
+
+Ryan
+Ryan is a left-handed, motorcycle-riding JavaScript developer. He was introduced to programming via HTML/CSS and further through data manipulation with SQL. He has a background in tech as a Product Manager for Amazon.
+LinkedIn: https://www.linkedin.com/in/ryan-groesch/
+
+Sarah
+Sarah is an environmental activist, bookworm, and full-stack JavaScript developer. When she's not coding you can find her at pub trivia, gaming, bouldering, or listening to a true crime podcast.
+LinkedIn: https://www.linkedin.com/in/sarahgeyer/
