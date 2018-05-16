@@ -256,4 +256,40 @@ describe('crawl-route.js tests', () => {
         });
     });
   });
+
+  describe('GET - a crawls total votes', () => {
+    test('should return status 200 with sucess', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/votes/${mock.crawl._id}`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then((response) => {
+          expect(response.body).toEqual('Total votes: 0');
+          expect(response.status).toBe(200);
+        });
+    });
+    test('should return status 404 with sucess', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/votes/badID`)
+            .set('Authorization', `Bearer ${mock.user.token}`);
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toBe(404);
+        });
+    });
+    test('should return status 401 with sucess', () => {
+      return createCrawlMockProm()
+        .then((mock) => {
+          return superagent.get(`${apiUrl}/crawls/votes/${mock.crawl._id}`)
+            .set('Authorization', 'Bearer badID');
+        })
+        .then(Promise.reject)
+        .catch((error) => {
+          expect(error.status).toBe(401);
+        });
+    });
+  });
 });
