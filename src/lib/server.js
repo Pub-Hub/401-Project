@@ -11,6 +11,8 @@ import profileRoute from '../route/profile-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
 
+const MessagingResponse = require('twilio').twiml.MessagingResponse; // eslint-disable-line
+
 const app = express();
 let server = null;
 
@@ -20,6 +22,17 @@ app.use(stopRoutes);
 app.use(profileRoute);
 app.use(userRoutes);
 app.use(crawlRoutes);
+app.get('/', (request, response) => {
+  response.send('moo');
+});
+app.post('/next-stop', (request, response) => {
+  const twiml = new MessagingResponse();
+
+  twiml.message('Dawn has a surprise for you....');
+
+  response.writeHead(200, { 'Content-Type': 'text/xml' });
+  response.end(twiml.toString());
+});
 app.get('/team', (req, res) => res.sendFile('/src/data/team.txt', { root: '.' }));
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning 404 from catch-all route');
