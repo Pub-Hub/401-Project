@@ -11,7 +11,7 @@ profileRouter.get('/profiles', bearerAuthMiddleware, (request, response, next) =
     .then((profiles) => {
       const allUsers = [];
       profiles.forEach(profile => allUsers.push(profile.username));
-      return response.json(profiles);
+      return response.json(allUsers);
     })
     .catch(next);
 });
