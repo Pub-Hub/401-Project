@@ -11,7 +11,7 @@ import profileRoute from '../route/profile-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
 
-const MessagingResponse = require('twilio').twiml.MessagingResponse; // eslint-disable-line
+const { MessagingResponse } = require('twilio').twiml;
 
 const app = express();
 let server = null;
@@ -27,9 +27,7 @@ app.get('/', (request, response) => {
 });
 app.post('/next-stop', (request, response) => {
   const twiml = new MessagingResponse();
-
   twiml.message('Dawn has a surprise for you....');
-
   response.writeHead(200, { 'Content-Type': 'text/xml' });
   response.end(twiml.toString());
 });

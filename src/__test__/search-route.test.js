@@ -36,4 +36,11 @@ describe('testing search functionality', () => {
         expect(err.status).toEqual(400);
       });
   });
+  test('should return 400 if max stops is out of range', () => {
+    return superagent.get(`${apiUrl}/search/47.6182477/-122.35406/3/1`)
+      .then(Promise.reject)
+      .catch((err) => {
+        expect(err.status).toEqual(400);
+      });
+  });
 });

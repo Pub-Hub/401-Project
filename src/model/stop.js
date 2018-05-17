@@ -26,18 +26,10 @@ const stopSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  // streetView: {
-  //   type: String,
-  //   required: true,
-  // },
   votes: {
     type: Number,
     default: 0,
   },
-  // price: {
-  //   type: String,
-  //   required: true,
-  // },
 });
 
 function savePreHook(done) {

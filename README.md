@@ -160,7 +160,7 @@ Example return:
             }            
         ]
 
-#### GET /crawls/\<username>/<crawl-id>
+#### GET /crawls/\<username>/\<crawl-id>
 
 Returns a single crawl from the user's profile.
 
@@ -182,7 +182,7 @@ Example return:
                 "profile": "5afc6fbbca7fb6001a5ed724"
             }
 
-#### GET /crawls/votes/<crawl-id>
+#### GET /crawls/votes/\<crawl-id>
 Returns the total number of votes on a crawl as a string.
 
 Example return:
@@ -190,7 +190,7 @@ Example return:
 
         "Total votes: 5"
 
-#### PUT /crawls/votes/<crawl-id>
+#### PUT /crawls/votes/\<crawl-id>
 Adds a vote to a crawl and returns the updated crawl.
 
 Example return:
@@ -211,7 +211,7 @@ Example return:
             "profile": "5afc6fbbca7fb6001a5ed724"
         }
         
-#### PUT /crawls/\<username>/<crawl-id>/<route-name>
+#### PUT /crawls/\<username>/\<crawl-id>/\<route-name>
 Saves a crawl to the user's profile and returns the saved crawl.
 
 Example return:
@@ -232,7 +232,7 @@ Example return:
             "profile": "5afc6fbbca7fb6001a5ed724"
         }
 
-#### DELETE /crawls/<crawl-id>
+#### DELETE /crawls/\<crawl-id>
 Deletes a single crawl from the database and removes crawl id from the user's profile.
 
 No return value.
@@ -243,7 +243,7 @@ The stops schema has a many to many relationship with the Crawls schema. The sto
 - A `votes` field that holds a number denoting the amount of times the stop has been "liked"/"favorited". 
 - The following fields are required and take in a 'String' type: `locationName`, `address`, `latitude`, and `longitude`.
 
-#### PUT /stops/votes/<stop-id>
+#### PUT /stops/votes/\<stop-id>
 Adds a vote to a stop and returns the stop information.
 
 Example return:
@@ -259,21 +259,22 @@ Example return:
             "address": "140 4th Avenue North #130, Seattle",
             "__v": 0
         }
-#### GET /stops/votes/<stop-id>
+#### GET /stops/votes/\<stop-id>
 Returns the total number of votes for a single stop as a string.
 
 Example return:
 
 
         "Total votes: 5"
-#### DELETE /stops/<stop-id>
+#### DELETE /stops/\<stop-id>
 Deletes a single stop from the database and removes the stop from the parent crawl. 
 
 No return value.
 
 ## Architecture
-This application was deployed with the following technologies.
-Node.js, npm, body-parser, dotenv, express, faker, mongoose, winston, babel, superagent, http-errors, jest, eslint, JavaScript.
+This application was deployed with the following technologies:
+
+Node.js, JavaScript body-parser, dotenv, express, faker, mongoose, winston, babel, superagent, http-errors, jest, eslint, GraphHopper, Twilio.
 
 ## Testing
 Testing is run through jest. To test, run
