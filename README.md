@@ -25,15 +25,15 @@ The PubHub API is available at `https://pub-hub.herokuapp.com`.
     - [Crawls Schema](#crawls-schema)
         - [Get all crawls in database](#get-/crawls)
         - [Get all crawls by username](#get-/crawls/\<username>)
-        - [Get one crawl by username](#get-/crawls/\<username>/<crawl-id>)
-        - [Get total votes by crawl](#get-/crawls/votes/<crawl-id>)
-        - [Add a vote to a crawl](#put-/crawls/votes/<crawl-id>)
-        - [Add a crawl to a user's profile](#put-/crawls/\<username>/<crawl-id>/<route-name>)
-        - [Delete a crawl](#delete-/crawls/<crawl-id>)
+        - [Get one crawl by username](#get-/crawls/\<username>/\<crawl-id>)
+        - [Get total votes by crawl](#get-/crawls/votes/\<crawl-id>)
+        - [Add a vote to a crawl](#put-/crawls/votes/\<crawl-id>)
+        - [Add a crawl to a user's profile](#put-/crawls/\<username>/\<crawl-id>/\<route-name>)
+        - [Delete a crawl](#delete-/crawls/\<crawl-id>)
     - [Stops Schema](#stops-schema)
-        - [Add a vote to a stop](#put-/stops/votes/<stop-id>)
-        - [Get total votes by stop](#get-/stops/votes/<stop-id>)
-        - [Delete a stop from a route](#delete-/stops/<stop-id>)
+        - [Add a vote to a stop](#put-/stops/votes/\<stop-id>)
+        - [Get total votes by stop](#get-/stops/votes/\<stop-id>)
+        - [Delete a stop from a route](#delete-/stops/\<stop-id>)
 - [Architecture](#architecture)
 - [Testing](#testing)
 - [Meet the Team](#meet-the-team)
@@ -103,7 +103,7 @@ This will return an array of objects holding the names and addresses of the gene
 The user schema has a one to one relationship with the profile schema.  The user schema is linked to a user's profile schema. The user schema holds the following information: 
 - A required and unique `username` string.
 - A required and unique `email` string.
-- A optional `phone` number string
+- An optional `phone` number string
 
 #### POST /signup
 Creates a new user profile and returns a unique token that the user must then pass to reach the other endpoints.
@@ -161,7 +161,7 @@ Example return:
             }            
         ]
 
-#### GET /crawls/\<username>/<crawl-id>
+#### GET /crawls/\<username>/\<crawl-id>
 
 Returns a single crawl from the user's profile.
 
@@ -183,7 +183,7 @@ Example return:
                 "profile": "5afc6fbbca7fb6001a5ed724"
             }
 
-#### GET /crawls/votes/<crawl-id>
+#### GET /crawls/votes/\<crawl-id>
 Returns the total number of votes on a crawl as a string.
 
 Example return:
@@ -191,7 +191,7 @@ Example return:
 
         "Total votes: 5"
 
-#### PUT /crawls/votes/<crawl-id>
+#### PUT /crawls/votes/\<crawl-id>
 Adds a vote to a crawl and returns the updated crawl.
 
 Example return:
@@ -212,7 +212,7 @@ Example return:
             "profile": "5afc6fbbca7fb6001a5ed724"
         }
         
-#### PUT /crawls/\<username>/<crawl-id>/<route-name>
+#### PUT /crawls/\<username>/\<crawl-id>/\<route-name>
 Saves a crawl to the user's profile and returns the saved crawl.
 
 Example return:
@@ -233,7 +233,7 @@ Example return:
             "profile": "5afc6fbbca7fb6001a5ed724"
         }
 
-#### DELETE /crawls/<crawl-id>
+#### DELETE /crawls/\<crawl-id>
 Deletes a single crawl from the database and removes crawl id from the user's profile.
 
 No return value.
@@ -244,7 +244,7 @@ The stops schema has a many to many relationship with the Crawls schema. The sto
 - A `votes` field that holds a number denoting the amount of times the stop has been "liked"/"favorited". 
 - The following fields are required and take in a 'String' type: `locationName`, `address`, `latitude`, and `longitude`.
 
-#### PUT /stops/votes/<stop-id>
+#### PUT /stops/votes/\<stop-id>
 Adds a vote to a stop and returns the stop information.
 
 Example return:
@@ -260,21 +260,22 @@ Example return:
             "address": "140 4th Avenue North #130, Seattle",
             "__v": 0
         }
-#### GET /stops/votes/<stop-id>
+#### GET /stops/votes/\<stop-id>
 Returns the total number of votes for a single stop as a string.
 
 Example return:
 
 
         "Total votes: 5"
-#### DELETE /stops/<stop-id>
+#### DELETE /stops/\<stop-id>
 Deletes a single stop from the database and removes the stop from the parent crawl. 
 
 No return value.
 
 ## Architecture
-This application was deployed with the following technologies.
-Node.js, npm, body-parser, dotenv, express, faker, mongoose, winston, babel, superagent, http-errors, jest, eslint, JavaScript.
+This application was deployed with the following technologies:
+
+Node.js, JavaScript body-parser, dotenv, express, faker, mongoose, winston, babel, superagent, http-errors, jest, eslint, GraphHopper, Twilio.
 
 ## Testing
 Testing is run through jest. To test, run
