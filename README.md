@@ -99,6 +99,8 @@ This will return an array of objects holding the names and addresses of the gene
 
 ## Schema Structure
 
+![schema diagram](src/data/ER_Schema_Diagram.jpg)
+
 ### User Schema
 The user schema has a one to one relationship with the profile schema.  The user schema is linked to a user's profile schema. The user schema holds the following information: 
 - A required and unique `username` string.
@@ -286,6 +288,9 @@ Testing is run through jest. To test, run
 After testing, run:
 
     npm run dboff
+    
+## Load Testing
+![load test](src/data/load-test.png)
 
 ## Meet the Team
 
