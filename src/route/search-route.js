@@ -18,7 +18,7 @@ searchRoute.get('/search/:latitude/:longitude/:price/:stops', (req, res, next) =
   const stopInfo = [];
   const orderedStops = [];
   let stops;
-  return superagent.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.params.latitude},${req.params.longitude}&price=${req.params.price}&rankby=distance&type=bar&key=${process.env.GOOGLE_API_KEY}`)
+  return superagent.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.params.latitude},${req.params.longitude}&price=${req.params.price}&rankby=distance&type=bar&keyword=pub&key=${process.env.GOOGLE_API_KEY}`)
     .then((searchResults) => {
       stops = searchResults.body.results.slice(0, Number(req.params.stops));
       return findOptimalRoute(stops);

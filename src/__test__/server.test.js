@@ -16,3 +16,12 @@ describe('testing / route', () => {
       });
   });
 });
+
+describe('testing /team', () => {
+  test('testing successful team response', () => {
+    return superagent.get(`${apiUrl}/team`)
+      .then((response) => {
+        expect(response.status).toBe(200);
+      });
+  });
+});

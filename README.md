@@ -3,11 +3,11 @@
 ![pubhub image](src/data/pubhub-small.png) 
 
 [![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
-![Coverage](https://img.shields.io/badge/coverage-99.23%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-97.6%25-brightgreen.svg)
 ![Node](https://img.shields.io/badge/node-v9.11.1-blue.svg)
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
-
+[![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg?style=flat)](https://github.com/Pub-Hub/401-Project)
 
 # Overview
 
@@ -297,6 +297,3 @@ GET `https://pub-hub.herokuapp.com/team` to learn a little bit more about the te
 Collaborators: [Sarah Geyer](https://github.com/sjgeyer), [Ryan Groesch](https://github.com/ryan-g13), [Dawn Aldrich](https://github.com/dawnaldrich), [Josh Fredrickson](https://github.com/Joshua-Fredrickson)
 
 Special thanks to all of the Code Fellows staff.
-
-
-[![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg?style=plastic)](https://github.com/Pub-Hub/401-Project)

@@ -28,11 +28,10 @@ app.get('/', (request, response) => {
   const cowPage = `<!DOCTYPE html><html><head><title>PubHub</title></head><body><h1>Welcome to PubHub!</h1><pre>${cowsayText}</pre></body></html>`;
   response.send(cowPage);
 });
+
 app.post('/next-stop', (request, response) => {
   const twiml = new MessagingResponse();
-
   twiml.message('Welcome to PubHub. Please visit our website at https://pub-hub.herokuapp.com/');
-
   response.writeHead(200, { 'Content-Type': 'text/xml' });
   response.end(twiml.toString());
 });
