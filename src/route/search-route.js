@@ -6,7 +6,6 @@ import superagent from 'superagent';
 import Stop from '../model/stop';
 import Crawl from '../model/crawl';
 import findOptimalRoute from '../lib/routing';
-import logger from '../lib/logger';
 
 const searchRoute = new Router();
 
@@ -25,16 +24,12 @@ searchRoute.get('/search/:latitude/:longitude/:price/:stops', (req, res, next) =
       return findOptimalRoute(stops);
     })
     .then((returnedStops) => {
-      logger.log(logger.ERROR, `RETURNED STOPS ${returnedStops}`);
       for (let i = 0; i < req.params.stops; i++) {
         orderedStops[i] = stops[returnedStops[i]];
       }
-      logger.log(logger.ERROR, `ORDEREDSTOPS ${orderedStops}`);
-      logger.log(logger.ERROR, 'HITTING HERE - 3');
       return new Crawl({}).save();
     })
     .then((crawl) => {
-      logger.log(logger.ERROR, 'HITTING HERE - 4');
       emptyCrawl = crawl;
       return Promise.all(orderedStops.map((location) => {
         stopInfo.push({ name: location.name, address: location.vicinity });
@@ -48,7 +43,6 @@ searchRoute.get('/search/:latitude/:longitude/:price/:stops', (req, res, next) =
       }));
     })
     .then(() => {
-      logger.log(logger.ERROR, 'HITTING HERE - 5');
       return Crawl.findById(emptyCrawl._id)
         .then((foundCrawl) => {
           stopInfo.push({ crawlId: foundCrawl._id });
