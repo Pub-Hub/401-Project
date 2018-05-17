@@ -35,6 +35,21 @@ describe('USER ROUTER', () => {
         expect(response.status).toEqual(400);
       });
   });
+  test('POST /signup - should return 409 if duplicate key sent', () => {
+    let duplicateUsername;
+    return createUserMockProm()
+      .then((mock) => {
+        duplicateUsername = mock.user.username;
+        return superagent.post(`${apiURL}/signup`)
+          .send({
+            username: duplicateUsername,
+            password: 'password',
+            email: 'email',
+          });
+      })
+      .then(Promise.reject)
+      .catch(err => expect(err.status).toBe(409));
+  });
   describe('GET /login', () => {
     test('GET /login should get a 200 status code and a token if there are no errors', () => {
       return createUserMockProm()
@@ -56,6 +71,27 @@ describe('USER ROUTER', () => {
         .then(Promise.reject)
         .catch((response) => {
           expect(response.status).toEqual(401);
+        });
+    });
+    test('GET /login should get a 400 if no authorization sent', () => {
+      return createUserMockProm()
+        .then(() => {
+          return superagent.get(`${apiURL}/login`);
+        })
+        .then(Promise.reject)
+        .catch((response) => {
+          expect(response.status).toEqual(400);
+        });
+    });
+    test('GET /login should get a 400 if incomplete authorization sent', () => {
+      return createUserMockProm()
+        .then(() => {
+          return superagent.get(`${apiURL}/login`)
+            .auth('');
+        })
+        .then(Promise.reject)
+        .catch((response) => {
+          expect(response.status).toEqual(400);
         });
     });
   });

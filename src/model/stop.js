@@ -26,21 +26,13 @@ const stopSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  // streetView: {
-  //   type: String,
-  //   required: true,
-  // },
   votes: {
     type: Number,
     default: 0,
   },
-  // price: {
-  //   type: String,
-  //   required: true,
-  // },
 });
 
-function stopPreHook(done) {
+function savePreHook(done) {
   return Crawl.findById(this.crawl)
     .then((crawlFound) => {
       if (!crawlFound) throw new HttpError(404, 'Crawl not found');
@@ -51,20 +43,21 @@ function stopPreHook(done) {
     .catch(done);
 }
 
-const stopPostHook = (document, done) => {
-  return Crawl.findById(document.crawl)
+function removePostHook(document, next) {
+  Crawl.findById(document.crawl)
     .then((crawlFound) => {
       if (!crawlFound) throw new HttpError(500, 'Crawl not found');
       crawlFound.stops = crawlFound.stops.filter((stop) => {
         return stop._id.toString() !== document._id.toString();
       });
+      crawlFound.save();
     })
-    .then(() => done())
-    .catch(done);
-};
+    .then(next)
+    .catch(next);
+}
 
 // event listeners
-stopSchema.pre('save', stopPreHook);
-stopSchema.post('remove', stopPostHook);
+stopSchema.pre('save', savePreHook);
+stopSchema.post('remove', removePostHook);
 
 export default mongoose.model('stop', stopSchema);
