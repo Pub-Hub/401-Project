@@ -14,5 +14,5 @@ client.messages
     from: '+13608420391',
     to: '+12067130375',
   })
-  .then(message => console.log(message.sid))
+  .then(message => console.log(message.sid)) // eslint-disable-line
   .done();

@@ -3,10 +3,11 @@
 ![pubhub image](src/data/pubhub-small.png) 
 
 [![Build Status](https://travis-ci.org/Pub-Hub/401-Project.svg?branch=master)](https://travis-ci.org/Pub-Hub/401-Project)
-![Coverage](https://img.shields.io/badge/coverage-99.23%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-97.6%25-brightgreen.svg)
 ![Node](https://img.shields.io/badge/node-v9.11.1-blue.svg)
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
+[![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg?style=flat)](https://github.com/Pub-Hub/401-Project)
 
 # Overview
 
@@ -24,15 +25,15 @@ The PubHub API is available at `https://pub-hub.herokuapp.com`.
     - [Crawls Schema](#crawls-schema)
         - [Get all crawls in database](#get-/crawls)
         - [Get all crawls by username](#get-/crawls/\<username>)
-        - [Get one crawl by username](#get-/crawls/\<username>/<crawl-id>)
-        - [Get total votes by crawl](#get-/crawls/votes/<crawl-id>)
-        - [Add a vote to a crawl](#put-/crawls/votes/<crawl-id>)
-        - [Add a crawl to a user's profile](#put-/crawls/\<username>/<crawl-id>/<route-name>)
-        - [Delete a crawl](#delete-/crawls/<crawl-id>)
+        - [Get one crawl by username](#get-/crawls/\<username>/\<crawl-id>)
+        - [Get total votes by crawl](#get-/crawls/votes/\<crawl-id>)
+        - [Add a vote to a crawl](#put-/crawls/votes/\<crawl-id>)
+        - [Add a crawl to a user's profile](#put-/crawls/\<username>/\<crawl-id>/\<route-name>)
+        - [Delete a crawl](#delete-/crawls/\<crawl-id>)
     - [Stops Schema](#stops-schema)
-        - [Add a vote to a stop](#put-/stops/votes/<stop-id>)
-        - [Get total votes by stop](#get-/stops/votes/<stop-id>)
-        - [Delete a stop from a route](#delete-/stops/<stop-id>)
+        - [Add a vote to a stop](#put-/stops/votes/\<stop-id>)
+        - [Get total votes by stop](#get-/stops/votes/\<stop-id>)
+        - [Delete a stop from a route](#delete-/stops/\<stop-id>)
 - [Architecture](#architecture)
 - [Testing](#testing)
 - [Meet the Team](#meet-the-team)
@@ -102,7 +103,7 @@ This will return an array of objects holding the names and addresses of the gene
 The user schema has a one to one relationship with the profile schema.  The user schema is linked to a user's profile schema. The user schema holds the following information: 
 - A required and unique `username` string.
 - A required and unique `email` string.
-- A optional `phone` number string
+- An optional `phone` number string
 
 #### POST /signup
 Creates a new user profile and returns a unique token that the user must then pass to reach the other endpoints.

@@ -37,6 +37,7 @@
     "superagent": "^3.8.3"
   },
   "dependencies": {
+    "artillery": "^1.6.0-15",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "cowsay": "^1.3.0",

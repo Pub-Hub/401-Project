@@ -1,0 +1,48 @@
+{
+  "config": {
+    "target": "https://pub-hub.herokuapp.com",
+    "phases": [
+      {
+        "duration": 2,
+        "arrivalRate": 10
+      },
+      {
+        "duration": 5,
+        "arrivalRate": 500
+      }
+    ],
+    "processor" : "./load-test-create-user.js"
+  },
+  "scenarios": [
+    {
+      "name": "Create Users",
+      "flow": [
+        {
+          "function": "create"
+        },
+        {
+          "post": {
+            "url": "/signup",
+            "json": {
+              "username": "{{ username }}",
+              "password": "{{ password }}",
+              "email": "{{ email }}"
+            },
+            "capture": {
+              "json": "$.token",
+              "as": "token"
+            }
+          }
+        }
+        ,{
+          "get": {
+            "url": "/profiles",
+            "headers": {
+              "Authorization": "Bearer {{ token }}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
