@@ -8,6 +8,7 @@
 ![npm](https://img.shields.io/badge/npm-v6.0.0-blue.svg)
 ![version](https://img.shields.io/badge/version-1.0.0-orange.svg)
 
+
 # Overview
 
 ## Getting Started
@@ -296,3 +297,6 @@ GET `https://pub-hub.herokuapp.com/team` to learn a little bit more about the te
 Collaborators: [Sarah Geyer](https://github.com/sjgeyer), [Ryan Groesch](https://github.com/ryan-g13), [Dawn Aldrich](https://github.com/dawnaldrich), [Josh Fredrickson](https://github.com/Joshua-Fredrickson)
 
 Special thanks to all of the Code Fellows staff.
+
+
+[![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg?style=plastic)](https://github.com/Pub-Hub/401-Project)
