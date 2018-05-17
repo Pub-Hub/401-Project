@@ -11,6 +11,8 @@
 
 # Overview
 
+This is a back-end application that generates a pub crawl, including user authentication, persistence of data via MongoDB, and route optimization via GraphHopper API. It uses the Google Places API to populate stops and stores/retrieves data via Mongoose middleware to the database. The application utilizes an Express server built with Node.js, middleware and a SMS send and retrieve feature via a Twilio API. 
+
 ## Getting Started
 
 The PubHub API is available at `https://pub-hub.herokuapp.com`.
