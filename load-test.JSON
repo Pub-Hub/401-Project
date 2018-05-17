@@ -1,14 +1,14 @@
 {
   "config": {
-    "target": "https://localhost:3000",
+    "target": "https://pub-hub.herokuapp.com",
     "phases": [
       {
         "duration": 2,
         "arrivalRate": 10
       },
       {
-        "duration": 20,
-        "arrivalRate": 10
+        "duration": 5,
+        "arrivalRate": 500
       }
     ],
     "processor" : "./load-test-create-user.js"
