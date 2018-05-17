@@ -2,6 +2,7 @@
 
 import express from 'express';
 import mongoose from 'mongoose';
+import cowsay from 'cowsay';
 import logger from './logger';
 import crawlRoutes from '../route/crawl-route';
 import stopRoutes from '../route/stop-route';
@@ -11,7 +12,7 @@ import profileRoute from '../route/profile-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
 
-const MessagingResponse = require('twilio').twiml.MessagingResponse; // eslint-disable-line
+const { MessagingResponse } = require('twilio').twiml;
 
 const app = express();
 let server = null;
@@ -23,7 +24,9 @@ app.use(profileRoute);
 app.use(userRoutes);
 app.use(crawlRoutes);
 app.get('/', (request, response) => {
-  response.send('moo');
+  const cowsayText = cowsay.think({ text: 'Bok bok!' });
+  const cowPage = `<!DOCTYPE html><html><head><title>PubHub</title></head><body><h1>Welcome to PubHub!</h1><pre>${cowsayText}</pre></body></html>`;
+  response.send(cowPage);
 });
 app.post('/next-stop', (request, response) => {
   const twiml = new MessagingResponse();
