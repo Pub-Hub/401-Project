@@ -296,7 +296,7 @@ After testing, run:
 
 ## Meet the Team
 
-GET `https://pub-hub.herokuapp.com/team` to learn a little bit more about the team that created this project.
+Visit [https://pub-hub.herokuapp.com/team](https://pub-hub.herokuapp.com/team) to learn a little bit more about the team that created this project.
 
 
 ## Credits and Collaborations
